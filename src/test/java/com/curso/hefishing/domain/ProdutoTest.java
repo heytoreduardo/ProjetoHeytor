@@ -29,7 +29,38 @@ class ProdutoTest {
         assertEquals(new BigDecimal("150.00"), produto.getValorUnitario());
         assertEquals(LocalDate.of(2026, 9, 5), produto.getDataCadastro());
         assertEquals(Status.ATIVO, produto.getStatus());
+        assertEquals(BigDecimal.ZERO, produto.getEstoqueMinimo());
         assertNull(produto.getGrupo());
+        assertNull(produto.getFornecedor());
+    }
+
+    @Test
+    void deveCriarProdutoComEstoqueMinimo() {
+        Produto produto = new Produto(
+                "7891234567890",
+                "Vara de Pesca",
+                new BigDecimal("10"),
+                new BigDecimal("150.00"),
+                new BigDecimal("3"),
+                LocalDate.of(2026, 9, 5)
+        );
+
+        assertEquals(new BigDecimal("3"), produto.getEstoqueMinimo());
+    }
+
+    @Test
+    void naoDeveCriarProdutoComEstoqueMinimoNegativo() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Produto(
+                        "7891234567890",
+                        "Vara de Pesca",
+                        new BigDecimal("10"),
+                        new BigDecimal("150.00"),
+                        new BigDecimal("-1"),
+                        LocalDate.of(2026, 9, 5)
+                )
+        );
     }
 
     @Test
