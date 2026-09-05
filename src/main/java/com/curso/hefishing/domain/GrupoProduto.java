@@ -1,14 +1,31 @@
 package com.curso.hefishing.domain;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "grupo_produto")
 public class GrupoProduto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120)
     private final String nome;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private Status status;
+
+    @OneToMany(mappedBy = "grupo", fetch = FetchType.LAZY)
     private final List<Produto> produtos = new ArrayList<>();
+
+    protected GrupoProduto() {
+        this.nome = null;
+    }
 
     public GrupoProduto(String nome) {
         this.nome = validarTextoObrigatorio(nome, "Nome do grupo é obrigatório");
@@ -21,6 +38,7 @@ public class GrupoProduto {
         boolean codigoJaUtilizado = produtos.stream()
                 .anyMatch(item -> item != produto
                         && item.getCodigoBarras().equals(produto.getCodigoBarras()));
+
         if (codigoJaUtilizado) {
             throw new IllegalArgumentException("Código de barras já utilizado no grupo");
         }
@@ -38,6 +56,10 @@ public class GrupoProduto {
 
     public void inativar() {
         this.status = Status.INATIVO;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {

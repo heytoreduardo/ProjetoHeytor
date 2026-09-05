@@ -1,19 +1,56 @@
 package com.curso.hefishing.domain;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
+@Table(
+        name = "produto",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_produto_codigo_barras",
+                columnNames = "codigo_barras"
+        )
+)
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 50)
     private final String codigoBarras;
+
+    @Column(nullable = false, length = 150)
     private String descricao;
+
+    @Column(nullable = false, precision = 18, scale = 3)
     private BigDecimal saldoEstoque;
+
+    @Column(nullable = false, precision = 18, scale = 2)
     private BigDecimal valorUnitario;
+
+    @Column(nullable = false)
     private final LocalDate dataCadastro;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private Status status;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(
+            name = "grupo_produto_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_produto_grupo_produto")
+    )
     private GrupoProduto grupo;
+
+    protected Produto() {
+        this.codigoBarras = null;
+        this.dataCadastro = null;
+    }
 
     public Produto(
             String codigoBarras,
@@ -23,19 +60,19 @@ public class Produto {
             LocalDate dataCadastro) {
         this.codigoBarras = validarTextoObrigatorio(
                 codigoBarras,
-                "Código de barras é obrigatório");
+                "Codigo de barras e obrigatorio");
         this.descricao = validarTextoObrigatorio(
                 descricao,
-                "Descrição é obrigatória");
+                "Descricao e obrigatoria");
         this.saldoEstoque = validarNaoNegativo(
                 saldoEstoque,
-                "Saldo de estoque não pode ser negativo");
+                "Saldo de estoque nao pode ser negativo");
         this.valorUnitario = validarNaoNegativo(
                 valorUnitario,
-                "Valor unitário não pode ser negativo");
+                "Valor unitario nao pode ser negativo");
         this.dataCadastro = Objects.requireNonNull(
                 dataCadastro,
-                "Data de cadastro é obrigatória");
+                "Data de cadastro e obrigatoria");
         this.status = Status.ATIVO;
     }
 
@@ -63,13 +100,13 @@ public class Produto {
     public void alterarDescricao(String novaDescricao) {
         this.descricao = validarTextoObrigatorio(
                 novaDescricao,
-                "Descrição é obrigatória");
+                "Descricao e obrigatoria");
     }
 
     public void alterarValorUnitario(BigDecimal novoValor) {
         this.valorUnitario = validarNaoNegativo(
                 novoValor,
-                "Valor unitário não pode ser negativo");
+                "Valor unitario nao pode ser negativo");
     }
 
     public void ativar() {
@@ -81,13 +118,17 @@ public class Produto {
     }
 
     void associarAo(GrupoProduto grupo) {
-        Objects.requireNonNull(grupo, "Grupo de produto é obrigatório");
+        Objects.requireNonNull(grupo, "Grupo de produto e obrigatorio");
 
         if (this.grupo != null && this.grupo != grupo) {
-            throw new IllegalStateException("Produto já pertence a outro grupo");
+            throw new IllegalStateException("Produto ja pertence a outro grupo");
         }
 
         this.grupo = grupo;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getCodigoBarras() {
