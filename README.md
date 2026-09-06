@@ -1,68 +1,67 @@
-﻿# 🎣 HeFishing
+﻿# HeFishing
 
-Sistema de gerenciamento de produtos para uma loja de artigos de pesca, desenvolvido como projeto acadêmico durante o curso de desenvolvimento com Java e Spring Boot.
+Sistema para gerenciamento de produtos de uma loja de artigos de pesca. O projeto foi desenvolvido como atividade acadêmica durante o curso de Sistemas de Informação, utilizando Java e Spring Boot.
 
-O projeto foi construído acompanhando as aulas do curso **SuporteOS 2026**, aplicando conceitos de Java, Spring Boot, modelagem de domínio, JPA, PostgreSQL, Liquibase, Spring Data JPA, serviços transacionais e desenvolvimento de APIs REST.
-
----
-
-## 📚 Status do Projeto
-
-**Projeto concluído até a Aula 07.**
-
-| Aula    | Conteúdo                                      | Status      |
-| ------- | --------------------------------------------- | ----------- |
-| Aula 00 | Git e GitHub                                  | ✅ Concluída |
-| Aula 01 | Ambiente Java e Maven                         | ✅ Concluída |
-| Aula 02 | Criação do projeto Spring Boot                | ✅ Concluída |
-| Aula 03 | Modelagem do domínio                          | ✅ Concluída |
-| Aula 04 | Persistência com JPA, PostgreSQL e Liquibase  | ✅ Concluída |
-| Aula 05 | Repositories, Services e Transactions         | ✅ Concluída |
-| Aula 06 | Evolução do modelo e Liquibase Diff           | ✅ Concluída |
-| Aula 07 | API REST, DTOs, Mappers e tratamento de erros | ✅ Concluída |
-
-> **Aula 07 é a última aula do projeto. Não existe Aula 08 no roteiro utilizado.**
+Durante o desenvolvimento foram aplicados os conteúdos das aulas do curso SuporteOS 2026, passando desde a configuração do ambiente até a criação de uma API REST com banco de dados.
 
 ---
 
-## 🎯 Objetivo
+## Sobre o projeto
 
-O HeFishing tem como objetivo fornecer uma API REST para gerenciamento de produtos de uma loja de artigos de pesca.
+O HeFishing permite cadastrar e consultar produtos, grupos de produtos e fornecedores.
 
-O sistema permite trabalhar com:
+Nos produtos são controladas informações como:
 
-* Produtos;
-* Grupos de produtos;
-* Fornecedores;
-* Controle de estoque;
-* Estoque mínimo;
-* Valor unitário;
-* Valor total em estoque;
-* Código de barras;
-* Status dos registros;
-* Relacionamentos entre produtos, grupos e fornecedores.
+* código de barras;
+* descrição;
+* quantidade em estoque;
+* valor unitário;
+* estoque mínimo;
+* grupo do produto;
+* fornecedor;
+* status;
+* valor total em estoque.
 
----
+O projeto foi desenvolvido seguindo as etapas das Aulas 00 a 07.
 
-## 🛠️ Tecnologias utilizadas
+## Andamento das aulas
 
-* **Java 21**
-* **Spring Boot 4.0.7**
-* **Spring Data JPA**
-* **Hibernate**
-* **PostgreSQL 16**
-* **Liquibase**
-* **Maven Wrapper**
-* **JUnit**
-* **Mockito**
-* **MockMvc**
-* **Postman**
-* **Git**
-* **GitHub**
+| Aula | Conteúdo                              | Status    |
+| ---- | ------------------------------------- | --------- |
+| 00   | Git e GitHub                          | Concluída |
+| 01   | Java e Maven                          | Concluída |
+| 02   | Projeto Spring Boot                   | Concluída |
+| 03   | Modelagem do domínio                  | Concluída |
+| 04   | JPA, PostgreSQL e Liquibase           | Concluída |
+| 05   | Repositories, Services e Transactions | Concluída |
+| 06   | Evolução do modelo e Liquibase Diff   | Concluída |
+| 07   | API REST, DTOs, Mappers e erros       | Concluída |
+
+A Aula 07 é a última aula do projeto utilizado no curso.
 
 ---
 
-## 🏗️ Estrutura do projeto
+## Tecnologias
+
+* Java 21
+* Spring Boot 4.0.7
+* Spring Data JPA
+* Hibernate
+* PostgreSQL 16
+* Liquibase
+* Maven Wrapper
+* JUnit
+* Mockito
+* MockMvc
+* Postman
+* Git
+* GitHub
+
+---
+
+## Estrutura
+
+O projeto está organizado da seguinte forma:
 
 ```text
 ProjetoHeytor/
@@ -99,15 +98,11 @@ ProjetoHeytor/
 └── pom.xml
 ```
 
----
-
-## 🧩 Organização das camadas
-
-O projeto utiliza uma separação por responsabilidades.
+## Organização do código
 
 ### Domain
 
-Contém as entidades e regras principais do sistema:
+Contém as classes principais do sistema:
 
 * `Produto`
 * `GrupoProduto`
@@ -116,7 +111,7 @@ Contém as entidades e regras principais do sistema:
 
 ### Repository
 
-Responsável pelo acesso aos dados utilizando Spring Data JPA:
+Responsável pelo acesso ao banco através do Spring Data JPA:
 
 * `ProdutoRepository`
 * `GrupoProdutoRepository`
@@ -124,48 +119,47 @@ Responsável pelo acesso aos dados utilizando Spring Data JPA:
 
 ### Service
 
-Concentra as regras de negócio e operações transacionais:
+Contém as regras de negócio e as operações com o banco:
 
 * `ProdutoService`
 * `GrupoProdutoService`
 * `FornecedorService`
 
-Também possui exceções específicas para:
-
-* recurso não encontrado;
-* recurso duplicado.
+Também são utilizadas exceções para situações como recurso não encontrado e cadastro duplicado.
 
 ### API
 
-Responsável pela comunicação HTTP:
+É a parte responsável pelas requisições HTTP.
+
+Nela estão os:
 
 * Controllers;
 * DTOs;
 * Mappers;
-* Tratamento padronizado de erros.
+* tratamento de erros.
 
 ---
 
-## 🗄️ Banco de dados
+## Banco de dados
 
-O projeto utiliza **PostgreSQL** como banco de dados.
+O banco utilizado no projeto é o PostgreSQL.
 
-São utilizados os seguintes bancos durante o desenvolvimento e os testes:
+Durante o desenvolvimento foram utilizados os bancos:
 
 ```text
 hefishing_dev
 hefishing_test
 ```
 
-A estrutura do banco é controlada pelo **Liquibase**.
+A criação e alteração das tabelas é feita pelo Liquibase.
 
-Os changelogs ficam em:
+Os arquivos ficam em:
 
 ```text
 src/main/resources/db/changelog/
 ```
 
-Principais alterações de banco:
+Changelogs principais:
 
 ```text
 001-create-grupo-produto.yaml
@@ -173,67 +167,51 @@ Principais alterações de banco:
 003-fornecedor-e-estoque-minimo.yaml
 ```
 
-O Liquibase é utilizado como fonte de verdade para a evolução do banco.
-
-O Hibernate está configurado para validar o schema, evitando que a aplicação altere automaticamente a estrutura do banco.
+O Hibernate está configurado para validar a estrutura do banco, enquanto o Liquibase é responsável pelas alterações do schema.
 
 ---
 
-## 🔐 Configuração de credenciais
+## Credenciais
 
-As credenciais do PostgreSQL **não são armazenadas no Git**.
+As senhas do PostgreSQL não ficam dentro do código versionado.
 
-O projeto utiliza variáveis de ambiente para as senhas do banco.
-
-Exemplo:
+O projeto utiliza variáveis de ambiente, por exemplo:
 
 ```properties
 spring.datasource.password=${DB_DEV_PASSWORD}
 ```
 
-As configurações sensíveis devem ser definidas no ambiente de execução.
+O arquivo `.env.example` serve apenas como referência para as variáveis utilizadas.
 
-O arquivo:
-
-```text
-.env.example
-```
-
-serve como referência para as variáveis necessárias.
-
-> **Nunca coloque senhas reais, tokens ou outras credenciais diretamente nos arquivos versionados do projeto.**
+Senhas reais e outras informações sensíveis não devem ser colocadas no Git.
 
 ---
 
-## ▶️ Como executar o projeto
+## Como executar
 
 ### Pré-requisitos
 
-Instale no computador:
+É necessário ter instalado:
 
 * Java 21;
 * PostgreSQL;
 * IntelliJ IDEA ou outra IDE compatível.
 
-O Maven não precisa ser instalado separadamente, pois o projeto utiliza o **Maven Wrapper**.
+Não é necessário instalar o Maven separadamente, pois o projeto possui Maven Wrapper.
 
----
-
-### 1. Clonar o projeto
+### Clonar o projeto
 
 ```bash
 git clone https://github.com/heytoreduardo/ProjetoHeytor.git
 ```
 
-Entrar na pasta:
+Depois:
 
 ```bash
 cd ProjetoHeytor
 ```
 
----
-
-### 2. Configurar o PostgreSQL
+### Banco de dados
 
 Crie os bancos:
 
@@ -242,11 +220,11 @@ hefishing_dev
 hefishing_test
 ```
 
-Configure as variáveis de ambiente necessárias para acesso ao PostgreSQL.
+Depois configure as variáveis de ambiente utilizadas pelo projeto para acessar o PostgreSQL.
 
----
+As tabelas não precisam ser criadas manualmente. O Liquibase faz essa parte quando a aplicação é executada.
 
-### 3. Executar os testes
+### Executar os testes
 
 No Windows:
 
@@ -260,7 +238,7 @@ No Linux/macOS:
 ./mvnw test
 ```
 
-O projeto atualmente possui **41 testes automatizados**, todos passando.
+Atualmente o projeto possui 41 testes e todos estão passando.
 
 Resultado esperado:
 
@@ -270,9 +248,7 @@ Tests run: 41, Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
----
-
-### 4. Executar a aplicação
+### Executar a aplicação
 
 No Windows:
 
@@ -280,7 +256,7 @@ No Windows:
 .\mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=dev"
 ```
 
-A aplicação será executada na porta:
+A aplicação utiliza a porta:
 
 ```text
 8080
@@ -288,7 +264,7 @@ A aplicação será executada na porta:
 
 ---
 
-## ❤️ Health Check
+## Health Check
 
 Para verificar se a aplicação está funcionando:
 
@@ -296,7 +272,7 @@ Para verificar se a aplicação está funcionando:
 GET http://localhost:8080/api/health
 ```
 
-Resposta esperada:
+Resposta:
 
 ```text
 OK
@@ -304,13 +280,11 @@ OK
 
 ---
 
-# 🌐 API REST
-
-A API utiliza endpoints para gerenciamento dos principais recursos do sistema.
+# API
 
 ## Grupos de produtos
 
-### Criar grupo
+### Cadastrar grupo
 
 ```http
 POST /api/grupos-produtos
@@ -334,7 +308,7 @@ GET /api/grupos-produtos
 
 ## Fornecedores
 
-### Criar fornecedor
+### Cadastrar fornecedor
 
 ```http
 POST /api/fornecedores
@@ -359,7 +333,7 @@ GET /api/fornecedores
 
 ## Produtos
 
-### Criar produto
+### Cadastrar produto
 
 ```http
 POST /api/produtos
@@ -379,7 +353,7 @@ Exemplo:
 }
 ```
 
-### Buscar produto por ID
+### Buscar produto
 
 ```http
 GET /api/produtos/{id}
@@ -399,31 +373,17 @@ GET /api/produtos
 
 ---
 
-# ⚠️ Tratamento de erros
+# Tratamento de erros
 
-A API possui tratamento padronizado para erros HTTP.
+A API possui respostas específicas para alguns erros.
 
-### Dados inválidos
+### 400 Bad Request
 
-```text
-400 Bad Request
-```
+Usado quando os dados enviados não passam pelas validações ou quando o JSON está incorreto.
 
-Utilizado para erros de validação dos dados enviados.
+### 404 Not Found
 
-### JSON malformado
-
-```text
-400 Bad Request
-```
-
-Utilizado quando o corpo da requisição não possui JSON válido.
-
-### Recurso não encontrado
-
-```text
-404 Not Found
-```
+Usado quando o recurso solicitado não existe.
 
 Exemplo:
 
@@ -435,21 +395,19 @@ Exemplo:
 }
 ```
 
-### Recurso duplicado
+### 409 Conflict
 
-```text
-409 Conflict
-```
+Usado quando existe um conflito com um registro já cadastrado.
 
-Exemplo: tentativa de cadastrar um produto com código de barras já existente.
+Por exemplo, tentar cadastrar novamente um produto com o mesmo código de barras.
 
 ---
 
-# 📦 DTOs
+# DTOs
 
-A API utiliza DTOs para separar o modelo interno das informações expostas pela API.
+Os DTOs são utilizados para definir os dados que entram e saem da API.
 
-Principais DTOs:
+Principais classes:
 
 ```text
 ProdutoRequest
@@ -462,7 +420,7 @@ FornecedorRequest
 FornecedorResponse
 ```
 
-Os DTOs também utilizam validações como:
+Também são utilizadas validações como:
 
 * `@NotBlank`
 * `@NotNull`
@@ -472,11 +430,11 @@ Os DTOs também utilizam validações como:
 
 ---
 
-# 🔄 Mappers
+# Mappers
 
-Os mappers são responsáveis pela conversão entre entidades e DTOs.
+Os mappers fazem a conversão entre as entidades e os DTOs.
 
-Principais mappers:
+Classes utilizadas:
 
 ```text
 ProdutoMapper
@@ -484,13 +442,13 @@ GrupoProdutoMapper
 FornecedorMapper
 ```
 
-Eles não realizam consultas ao banco, não controlam transações e não possuem responsabilidade sobre HTTP.
+A ideia é deixar essa conversão separada das regras de negócio e dos Controllers.
 
 ---
 
-# 🧪 Testes
+# Testes
 
-O projeto possui testes de diferentes camadas:
+Foram criados testes para diferentes partes da aplicação.
 
 ```text
 HeFishingApplicationTests
@@ -508,27 +466,25 @@ FornecedorServiceTest
 ProdutoControllerTest
 ```
 
-### Resultado atual
+Resultado atual:
 
 ```text
 41 testes executados
 0 falhas
 0 erros
-```
 
-```text
 BUILD SUCCESS
 ```
 
-Também existe teste específico para verificar a integridade do banco, incluindo a restrição que impede estoque negativo.
+Também existe um teste relacionado à integridade do banco, verificando, entre outras coisas, que não é possível inserir estoque negativo.
 
 ---
 
-# 📬 Postman
+# Postman
 
-Os testes da API podem ser realizados utilizando o Postman.
+Foi criada uma Collection do Postman para testar os endpoints da API.
 
-A Collection utilizada no projeto contém testes para:
+Os testes realizados foram:
 
 ```text
 00 - Health check
@@ -544,11 +500,17 @@ A Collection utilizada no projeto contém testes para:
 10 - JSON malformado - 400
 ```
 
-A Collection pode ser exportada e importada no Postman para utilização em outro computador.
+A Collection também está disponível no repositório:
+
+```text
+HeFishing - Aula 07.postman_collection.json
+```
+
+Ela pode ser importada no Postman para testar a API em outro computador.
 
 ---
 
-# 🌿 Git e GitHub
+# Git e GitHub
 
 Repositório:
 
@@ -562,9 +524,7 @@ Branch principal:
 main
 ```
 
-O projeto possui checkpoints por aula através de tags Git.
-
-### Tags
+Foram criadas tags para marcar o final de cada etapa:
 
 ```text
 aula-00-inicio
@@ -579,17 +539,16 @@ aula-07-api-rest-dtos-mappers
 
 ---
 
-# 🎓 Conclusão
+# Conclusão
 
-O HeFishing foi desenvolvido como projeto acadêmico para aplicar, de forma progressiva, os conceitos apresentados durante as Aulas 00 a 07.
+O HeFishing foi desenvolvido durante as Aulas 00 a 07, acompanhando a evolução do projeto desde a configuração do ambiente até a criação da API REST.
 
-Ao final do projeto, foram aplicados conceitos de:
+Durante o desenvolvimento foram utilizados conceitos de:
 
-* Git e GitHub;
-* Java 21;
+* Java;
 * Maven;
 * Spring Boot;
-* Modelagem de domínio;
+* modelagem de domínio;
 * JPA e Hibernate;
 * PostgreSQL;
 * Liquibase;
@@ -598,19 +557,20 @@ Ao final do projeto, foram aplicados conceitos de:
 * Transactions;
 * DTOs;
 * Mappers;
-* Validação;
+* validação;
 * API REST;
-* Tratamento de exceções;
-* Testes automatizados;
+* tratamento de exceções;
+* testes automatizados;
 * MockMvc;
-* Postman.
+* Postman;
+* Git e GitHub.
 
-**Status final: Projeto concluído até a Aula 07. ✅**
+O projeto está concluído até a Aula 07.
 
----
+## Projeto acadêmico
 
-## 👨‍💻 Projeto acadêmico
+**HeFishing**
 
-**HeFishing — Sistema de gerenciamento de produtos para artigos de pesca**
+Sistema de gerenciamento de produtos para uma loja de artigos de pesca.
 
-Desenvolvido para fins acadêmicos durante o curso de Sistemas de Informação.
+Projeto desenvolvido para fins acadêmicos no curso de Sistemas de Informação.
