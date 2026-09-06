@@ -38,7 +38,11 @@ class ProdutoServiceTest {
                 LocalDate.now()
         );
 
-        Produto salvo = produtoService.cadastrar(produto, grupo.getId());
+        Produto salvo = produtoService.cadastrar(
+                produto,
+                grupo.getId(),
+                null
+        );
 
         assertNotNull(salvo.getId());
         assertEquals("7891234567890", salvo.getCodigoBarras());
@@ -59,7 +63,11 @@ class ProdutoServiceTest {
                 LocalDate.now()
         );
 
-        produtoService.cadastrar(primeiro, grupo.getId());
+        produtoService.cadastrar(
+                primeiro,
+                grupo.getId(),
+                null
+        );
 
         Produto segundo = new Produto(
                 "7891111111111",
@@ -71,7 +79,11 @@ class ProdutoServiceTest {
 
         assertThrows(
                 RecursoDuplicadoException.class,
-                () -> produtoService.cadastrar(segundo, grupo.getId())
+                () -> produtoService.cadastrar(
+                        segundo,
+                        grupo.getId(),
+                        null
+                )
         );
     }
 
@@ -87,7 +99,11 @@ class ProdutoServiceTest {
 
         assertThrows(
                 RecursoNaoEncontradoException.class,
-                () -> produtoService.cadastrar(produto, 999999L)
+                () -> produtoService.cadastrar(
+                        produto,
+                        999999L,
+                        null
+                )
         );
     }
 }
